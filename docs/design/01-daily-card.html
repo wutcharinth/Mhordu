@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<title>Mhordu · ดวงประจำวัน — 3 mood variations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600;700&family=Pridi:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Register B · Y2K Mystic Pop */
+  --b-butter: oklch(92% 0.10 95);
+  --b-lavender: oklch(82% 0.08 290);
+  --b-mint: oklch(88% 0.09 165);
+  --b-blush: oklch(85% 0.10 25);
+  --b-ink: oklch(20% 0.005 270);
+  --b-ink-soft: oklch(45% 0.04 285);
+  --b-paper: oklch(97% 0.01 90);
+  --b-mark-line: oklch(35% 0.06 270);
+
+  /* Day-of-week canonical (สีมงคล) — Wednesday daytime = green */
+  --day-wed-day: #5BAE6E;
+
+  /* Fonts */
+  --font-display: 'Mali', 'Pridi', sans-serif;
+  --font-display-serif: 'Pridi', serif;
+  --font-body: 'IBM Plex Sans Thai', system-ui, sans-serif;
+  --font-num: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: var(--font-body);
+  background: oklch(97% 0.005 90);
+  color: var(--b-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px 96px;
+}
+
+.page-header {
+  max-width: 1280px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-family: var(--font-display-serif);
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--b-ink-soft);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.scale-label {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-family: var(--font-num);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--b-ink-soft);
+  background: oklch(94% 0.005 90);
+  border-radius: 999px;
+}
+
+/* Side-by-side gallery of 3 cards */
+.gallery {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  margin-top: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 360px;
+  flex-shrink: 0;
+}
+
+.card-mood-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--b-ink-soft);
+}
+
+.card-mood-label::before {
+  content: '·';
+  margin-right: 6px;
+  color: var(--b-mark-line);
+}
+
+/* Card scaler — internally 1080x1920, scaled to fit */
+.card-scaler {
+  transform: scale(0.32);
+  transform-origin: top left;
+  width: 1080px;
+  height: 1920px;
+  margin-bottom: -1306px; /* scaled spacer: 1920*(1-0.32) */
+  margin-right: -720px;   /* collapse scaled overflow: 1080*(1-0.32) */
+}
+
+/* The actual share card — IG Story 1080x1920 */
+.card {
+  width: 1080px;
+  height: 1920px;
+  position: relative;
+  overflow: hidden;
+  padding: 96px 88px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card--butter   { background: var(--b-butter); }
+.card--lavender { background: var(--b-lavender); }
+.card--mint     { background: var(--b-mint); }
+
+/* Decorative grain — subtle noise so the flat color isn't too AI-flat */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 18% 22%, oklch(100% 0 0 / 0.18) 0, transparent 35%),
+    radial-gradient(circle at 82% 78%, oklch(0% 0 0 / 0.08) 0, transparent 40%);
+  mix-blend-mode: soft-light;
+}
+
+/* Top row: date pill + logo */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  z-index: 2;
+}
+
+.date-pill {
+  background: var(--b-ink);
+  color: var(--b-paper);
+  padding: 18px 32px;
+  border-radius: 999px;
+  font-family: var(--font-display-serif);
+  font-weight: 500;
+  font-size: 28px;
+  letter-spacing: 0.01em;
+}
+
+.date-pill .num {
+  font-family: var(--font-display-serif);
+  font-weight: 600;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--b-ink);
+}
+
+.logo svg {
+  width: 64px;
+  height: 64px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.logo-wordmark {
+  font-family: var(--font-display-serif);
+  font-weight: 600;
+  font-size: 32px;
+  letter-spacing: 0.02em;
+}
+
+/* Hero block: mood word + reading */
+.card-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  margin-top: 40px;
+}
+
+.day-label {
+  font-family: var(--font-body);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--b-ink);
+  opacity: 0.7;
+  margin-bottom: 24px;
+}
+
+.mood-word {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 280px;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--b-ink);
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.mood-word .holo {
+  background-image: conic-gradient(from 220deg at 50% 50%,
+    oklch(85% 0.10 95),
+    oklch(85% 0.10 195),
+    oklch(85% 0.10 320),
+    oklch(85% 0.10 95));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sparkle {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+}
+
+.reading {
+  font-family: var(--font-body);
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1.85;
+  color: var(--b-ink);
+  max-width: 820px;
+}
+
+.reading strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+  background: oklch(0% 0 0 / 0.06);
+  padding: 0 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Lucky chips strip */
+.lucky-strip {
+  position: relative;
+  z-index: 2;
+  margin-top: 64px;
+  padding-top: 40px;
+  border-top: 2px solid oklch(0% 0 0 / 0.18);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.lucky-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lucky-chip__label {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+  color: var(--b-ink);
+  opacity: 0.55;
+}
+
+.lucky-chip__value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 44px;
+  color: var(--b-ink);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  line-height: 1.1;
+}
+
+.lucky-chip__swatch {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--day-wed-day);
+  box-shadow: inset 0 -2px 0 oklch(0% 0 0 / 0.15);
+}
+
+/* Bottom: watermark + CTA */
+.card-bottom {
+  position: relative;
+  z-index: 2;
+  margin-top: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.watermark {
+  font-family: var(--font-display-serif);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--b-ink);
+  opacity: 0.8;
+  letter-spacing: 0.02em;
+}
+
+.cta {
+  background: var(--b-ink);
+  color: var(--b-paper);
+  padding: 22px 40px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 26px;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cta-line {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: oklch(70% 0.15 145); /* LINE green */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--b-paper);
+}
+
+/* Mascot — abstract geometric (crescent + sparkle + dot) */
+.mascot {
+  position: absolute;
+  right: 88px;
+  top: 380px;
+  width: 220px;
+  height: 220px;
+  z-index: 1;
+}
+
+.mascot__crescent {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, oklch(95% 0 0 / 0.6) 0, transparent 50%),
+    conic-gradient(from 220deg at 50% 50%,
+      oklch(82% 0.13 95),
+      oklch(82% 0.13 195),
+      oklch(82% 0.13 320),
+      oklch(82% 0.13 95));
+  box-shadow:
+    inset 18px -10px 0 0 var(--b-mark-line),
+    0 8px 24px oklch(0% 0 0 / 0.08);
+  position: relative;
+}
+
+.mascot__dot {
+  position: absolute;
+  top: 64px;
+  left: 88px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--b-mark-line);
+}
+
+.mascot__sparkle-top {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 56px;
+  height: 56px;
+}
+
+.mascot__sparkle-bottom {
+  position: absolute;
+  bottom: 10px;
+  right: -20px;
+  width: 36px;
+  height: 36px;
+}
+
+/* Small variant: just to validate it works at smaller sizes */
+.thumb-test {
+  margin: 80px auto 0;
+  max-width: 1280px;
+  padding: 32px;
+  background: oklch(94% 0.005 90);
+  border-radius: 24px;
+}
+
+.thumb-test__label {
+  font-family: var(--font-display-serif);
+  font-weight: 600;
+  font-size: 17px;
+  margin-bottom: 8px;
+  color: var(--b-ink);
+}
+
+.thumb-test__desc {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--b-ink-soft);
+  margin-bottom: 24px;
+}
+
+.thumb-test__row {
+  display: flex;
+  gap: 24px;
+  align-items: flex-end;
+}
+
+.thumb-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.thumb-cell__size-label {
+  font-size: 11px;
+  font-family: var(--font-num);
+  color: var(--b-ink-soft);
+  letter-spacing: 0.08em;
+}
+
+.thumb-scaler-240 {
+  transform: scale(0.222); /* 240/1080 = 0.222 */
+  transform-origin: top left;
+  width: 1080px;
+  height: 1920px;
+  margin: 0;
+}
+
+.thumb-frame-240 {
+  width: 240px;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--b-butter);
+  position: relative;
+  box-shadow: 0 4px 12px oklch(0% 0 0 / 0.08);
+}
+
+.thumb-scaler-120 {
+  transform: scale(0.111);
+  transform-origin: top left;
+  width: 1080px;
+  height: 1920px;
+}
+
+.thumb-frame-120 {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--b-butter);
+  position: relative;
+  box-shadow: 0 4px 12px oklch(0% 0 0 / 0.08);
+}
+
+/* Nav back to gallery */
+.nav-back {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 100;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--b-ink-soft);
+  text-decoration: none;
+  background: oklch(100% 0 0 / 0.85);
+  backdrop-filter: blur(8px);
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid oklch(0% 0 0 / 0.08);
+}
+
+.nav-back:hover { color: var(--b-ink); }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="nav-back">← กลับไปคลังภาพ</a>
+
+<div class="page-header">
+  <h1>01 · การ์ดดวงประจำวัน (hero asset)</h1>
+  <p>ขนาดจริง 1080 × 1920 (IG Story) · ๓ โทนสีหมุนเวียนตามวัน · register B · พี่ voice</p>
+  <span class="scale-label">แสดงผลขนาด 32% เพื่อเทียบดู — pixel จริงเต็มความละเอียด</span>
+</div>
+
+<div class="gallery">
+
+  <!-- VARIATION 1 — BUTTER (joyful / kind) -->
+  <div class="card-stage">
+    <span class="card-mood-label">butter · ใจดี</span>
+    <div class="card-scaler">
+      <div class="card card--butter">
+
+        <div class="card-top">
+          <div class="date-pill">
+            พุธ · <span class="num">๑๓ พ.ค. ๖๙</span>
+          </div>
+          <div class="logo">
+            <svg viewBox="0 0 48 48" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M24 9 C20 17 20 23 24 27 C28 23 28 17 24 9 Z"/>
+              <path d="M11 15 C15 21 19 25 24 27 C20 23 16 17 11 15 Z"/>
+              <path d="M37 15 C33 21 29 25 24 27 C28 23 32 17 37 15 Z"/>
+              <path d="M7 27 C13 29 19 29 24 27 C19 29 13 33 7 27 Z"/>
+              <path d="M41 27 C35 29 29 29 24 27 C29 29 35 33 41 27 Z"/>
+              <circle cx="24" cy="8" r="3.2"/>
+            </svg>
+            <span class="logo-wordmark">มหรดู</span>
+          </div>
+        </div>
+
+        <div class="mascot" aria-hidden="true">
+          <div class="mascot__crescent">
+            <div class="mascot__dot"></div>
+          </div>
+          <svg class="mascot__sparkle-top" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="currentColor"/>
+          </svg>
+          <svg class="mascot__sparkle-bottom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <div class="card-hero">
+          <div class="day-label">ดวงพุธของพี่หนิง</div>
+          <h1 class="mood-word">ใจดี</h1>
+          <p class="reading">
+            วันพุธของพี่นุ่มนวลกว่าวันอื่น <strong>ลองยิ้มก่อนเริ่มประชุม</strong> สักครั้งดูสิ คนที่เห็นจะกลับมาเอ็นดูเราทั้งวัน บ่ายๆ จะมีคนทักมาเรื่องเก่าๆ ค่อยๆ ฟังนะ
+          </p>
+        </div>
+
+        <div class="lucky-strip">
+          <div class="lucky-chip">
+            <span class="lucky-chip__label">สีมงคล</span>
+            <span class="lucky-chip__value">
+              <span class="lucky-chip__swatch"></span>
+              เขียวมินต์
+            </span>
+          </div>
+          <div class="lucky-chip">
+            <span class="lucky-chip__label">เลข</span>
+            <span class="lucky-chip__value">๖</span>
+          </div>
+          <div class="lucky-chip">
+            <span class="lucky-chip__label">ทิศ</span>
+            <span class="lucky-chip__value">ตะวันออก</span>
+          </div>
+          <div class="lucky-chip">
+            <span class="lucky-chip__label">เวลา</span>
+            <span class="lucky-chip__value">๑๐ โมง</span>
+          </div>
+        </div>
+
+        <div class="card-bottom">
+          <span class="watermark">mhordu.com</span>
+          <div class="cta">
+            <span class="cta-line">L</span>
+            อ่านเต็มที่ LINE
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- VARIATION 2 — LAVENDER (slow / introspective) -->
+  <div class="card-stage">
+    <span class="card-mood-label">lavender · ค่อยๆ</span>
+    <div class="card-scaler">
+      <div class="card card--lavender">
+
+        <div class="card-top">
+          <div class="date-pill">
+            พุธ · <span class="num">๑๓ พ.ค. ๖๙</span>
+          </div>
+          <div class="logo">
+            <svg viewBox="0 0 48 48" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M24 9 C20 17 20 23 24 27 C28 23 28 17 24 9 Z"/>
+              <path d="M11 15 C15 21 19 25 24 27 C20 23 16 17 11 15 Z"/>
+              <path d="M37 15 C33 21 29 25 24 27 C28 23 32 17 37 15 Z"/>
+              <path d="M7 27 C13 29 19 29 24 27 C19 29 13 33 7 27 Z"/>
+              <path d="M41 27 C35 29 29 29 24 27 C29 29 35 33 41 27 Z"/>
+              <circle cx="24" cy="8" r="3.2"/>
+            </svg>
+            <span class="logo-wordmark">มหรดู</span>
+          </div>
+        </div>
+
+        <div class="mascot" aria-hidden="true">
+          <div class="mascot__crescent" style="transform: rotate(-12deg);">
+            <div class="mascot__dot"></div>
+          </div>
+          <svg class="mascot__sparkle-top" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="currentColor"/>
+          </svg>
+          <svg class="mascot__sparkle-bottom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <div class="card-hero">
+          <div class="day-label">ดวงพุธของพี่หนิง</div>
+          <h1 class="mood-word">ค่อยๆ</h1>
+          <p class="reading">
+            ราหูทำมุมกับจันทร์วันนี้ <strong>อย่ารีบตอบข้อความ</strong> ใคร ค่อยๆ คิดก่อนพิมพ์นะ บ่ายโมงค่อยกลับมาดูใหม่ ใจจะเย็นกว่ามาก
+          </p>
+        </div>
+
+        <div class="lucky-strip">
+          <div class="lucky-chip">
+            <span class="lucky-chip__label">สีมงคล</span>
+            <span class="lucky-chip__value">
+              <span class="lucky-chip__swatch"></span>
+              เขียวมินต์
+            </span>
+          </div>
+          <div class="lucky-chip">
+            <span class="lucky-chip__label">เลข</span>
+            <span class="lucky-chip__value">๖</span>
+          </div>
+          <div class="lucky-chip">
+            <span class="lucky-chip__label">ทิศ</span>
+            <span class="lucky-chip__value">ตะวันออก</span>
+          </div>
+          <div class="lucky-chip">
+            <span class="lucky-chip__label">เวลา</span>
+            <span class="lucky-chip__value">บ่าย ๑</span>
+          </div>
+        </div>
+
+        <div class="card-bottom">
+          <span class="watermark">mhordu.com</span>
+          <div class="cta">
+            <span class="cta-line">L</span>
+            อ่านเต็มที่ LINE
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- VARIATION 3 — MINT (smooth flow / talkative) -->
+  <div class="card-stage">
+    <span class="card-mood-label">mint · ลื่นไหล</span>
+    <div class="card-scaler">
+      <div class="card card--mint">
+
+        <div class="card-top">
+          <div class="date-pill">
+            พุธ · <span class="num">๑๓ พ.ค. ๖๙</span>
+          </div>
+          <div class="logo">
+            <svg viewBox="0 0 48 48" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M24 9 C20 17 20 23 24 27 C28 23 28 17 24 9 Z"/>
+              <path d="M11 15 C15 21 19 25 24 27 C20 23 16 17 11 15 Z"/>
+              <path d="M37 15 C33 21 29 25 24 27 C28 23 32 17 37 15 Z"/>
+              <path d="M7 27 C13 29 19 29 24 27 C19 29 13 33 7 27 Z"/>
+              <path d="M41 27 C35 29 29 29 24 27 C29 29 35 33 41 27 Z"/>
+              <circle cx="24" cy="8" r="3.2"/>
+            </svg>
+            <span class="logo-wordmark">มหรดู</span>
+          </div>
+        </div>
+
+        <div class="mascot" aria-hidden="true">
+          <div class="mascot__crescent" style="transform: rotate(8deg);">
+            <div class="mascot__dot"></div>
+          </div>
+          <svg class="mascot__sparkle-top" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="currentColor"/>
+          </svg>
+          <svg class="mascot__sparkle-bottom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <div class="card-hero">
+          <div class="day-label">ดวงพุธของพี่หนิง</div>
+          <h1 class="mood-word">ลื่นไหล</h1>
+          <p class="reading">
+            ดาวพุธเข้าทางวันนี้ พลังพูดคุย<strong>ลื่นไหลเป็นพิเศษ</strong> มีอะไรอยากบอกใครให้บอกวันนี้นะ คำพูดจะถูกเข้าใจง่ายผิดปกติ
+          </p>
+        </div>
+
+        <div class="lucky-strip">
+          <div class="lucky-chip">
+            <span class="lucky-chip__label">สีมงคล</span>
+            <span class="lucky-chip__value">
+              <span class="lucky-chip__swatch"></span>
+              เขียวมินต์
+            </span>
+          </div>
+          <div class="lucky-chip">
+            <span class="lucky-chip__label">เลข</span>
+            <span class="lucky-chip__value">๖</span>
+          </div>
+          <div class="lucky-chip">
+            <span class="lucky-chip__label">ทิศ</span>
+            <span class="lucky-chip__value">ตะวันออก</span>
+          </div>
+          <div class="lucky-chip">
+            <span class="lucky-chip__label">เวลา</span>
+            <span class="lucky-chip__value">๑๐ โมง</span>
+          </div>
+        </div>
+
+        <div class="card-bottom">
+          <span class="watermark">mhordu.com</span>
+          <div class="cta">
+            <span class="cta-line">L</span>
+            อ่านเต็มที่ LINE
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Thumbnail readability test -->
+<div class="thumb-test">
+  <div class="thumb-test__label">ทดสอบความอ่านง่ายที่ขนาด thumbnail</div>
+  <div class="thumb-test__desc">การ์ดต้องอ่านได้ที่ขนาด LINE chat preview (240px) และ feed thumbnail (120px) — "ใจดี" ต้องเด่นพอที่นิ้วโป้งจะหยุดเลื่อนได้</div>
+  <div class="thumb-test__row">
+    <div class="thumb-cell">
+      <div class="thumb-frame-240">
+        <div class="thumb-scaler-240">
+          <div class="card card--butter" style="padding: 96px 88px;">
+            <div class="card-top">
+              <div class="date-pill">พุธ · <span class="num">๑๓ พ.ค.</span></div>
+              <div class="logo">
+                <svg viewBox="0 0 48 48" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M24 9 C20 17 20 23 24 27 C28 23 28 17 24 9 Z"/><path d="M11 15 C15 21 19 25 24 27 C20 23 16 17 11 15 Z"/><path d="M37 15 C33 21 29 25 24 27 C28 23 32 17 37 15 Z"/><path d="M7 27 C13 29 19 29 24 27 C19 29 13 33 7 27 Z"/><path d="M41 27 C35 29 29 29 24 27 C29 29 35 33 41 27 Z"/><circle cx="24" cy="8" r="3.2"/></svg>
+                <span class="logo-wordmark">มหรดู</span>
+              </div>
+            </div>
+            <div class="card-hero">
+              <div class="day-label">ดวงพุธของพี่หนิง</div>
+              <h1 class="mood-word">ใจดี</h1>
+              <p class="reading">วันพุธของพี่นุ่มนวลกว่าวันอื่น ลองยิ้มก่อนเริ่มประชุม</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="thumb-cell__size-label">240 × 240 (LINE chat)</span>
+    </div>
+    <div class="thumb-cell">
+      <div class="thumb-frame-120">
+        <div class="thumb-scaler-120">
+          <div class="card card--butter" style="padding: 96px 88px;">
+            <div class="card-top">
+              <div class="date-pill">พุธ · <span class="num">๑๓ พ.ค.</span></div>
+              <div class="logo">
+                <svg viewBox="0 0 48 48" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill="none" stroke="currentColor"><path d="M24 9 C20 17 20 23 24 27 C28 23 28 17 24 9 Z"/><circle cx="24" cy="8" r="3.2"/></svg>
+                <span class="logo-wordmark">มหรดู</span>
+              </div>
+            </div>
+            <div class="card-hero">
+              <div class="day-label">ดวงพี่หนิง</div>
+              <h1 class="mood-word">ใจดี</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="thumb-cell__size-label">120 × 120 (feed)</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

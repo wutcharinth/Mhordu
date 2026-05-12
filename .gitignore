@@ -1,0 +1,29 @@
+.DS_Store
+*.log
+
+# Node / future build artifacts
+node_modules/
+.next/
+dist/
+build/
+.turbo/
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+
+# Python (in case scripts are added)
+__pycache__/
+*.pyc
+.venv/
+
+# Playwright (re-generated artifacts only — keep design screenshots)
+test-results/
+playwright-report/

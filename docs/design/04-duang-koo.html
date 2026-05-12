@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<title>Mhordu · ดวงคู่</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600;700&family=Pridi:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --b-butter: oklch(92% 0.10 95);
+  --b-lavender: oklch(82% 0.08 290);
+  --b-mint: oklch(88% 0.09 165);
+  --b-blush: oklch(85% 0.10 25);
+  --b-peach: oklch(88% 0.10 50);
+  --b-ink: oklch(20% 0.005 270);
+  --b-ink-soft: oklch(45% 0.04 285);
+  --b-paper: oklch(97% 0.01 90);
+  --b-mark-line: oklch(35% 0.06 270);
+
+  --font-display: 'Mali', sans-serif;
+  --font-display-serif: 'Pridi', serif;
+  --font-body: 'IBM Plex Sans Thai', system-ui, sans-serif;
+  --font-num: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: var(--font-body);
+  background: oklch(97% 0.005 90);
+  color: var(--b-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+body { padding: 48px 24px 96px; }
+
+.page-header {
+  max-width: 1280px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-family: var(--font-display-serif);
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--b-ink-soft);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.section {
+  max-width: 1400px;
+  margin: 48px auto;
+}
+
+.section-label {
+  display: block;
+  font-family: var(--font-num);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--b-ink-soft);
+  margin-bottom: 16px;
+  padding-left: 16px;
+  text-align: center;
+}
+
+.gallery {
+  display: flex;
+  gap: 56px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.card-mood-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--b-ink-soft);
+}
+
+/* --- INVITE STATE: 1080x1080 LINE timeline --- */
+.scaler-1080 {
+  transform: scale(0.40);
+  transform-origin: top center;
+  width: 1080px;
+  height: 1080px;
+  margin-bottom: -648px;
+}
+
+.card-1080 {
+  width: 1080px;
+  height: 1080px;
+  background: var(--b-blush);
+  position: relative;
+  overflow: hidden;
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-1080__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.section-pill {
+  background: var(--b-ink);
+  color: var(--b-paper);
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 26px;
+  letter-spacing: 0.02em;
+}
+
+.logo-tiny {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--b-ink);
+}
+
+.logo-tiny svg {
+  width: 44px;
+  height: 44px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.logo-tiny__word {
+  font-family: var(--font-display-serif);
+  font-weight: 600;
+  font-size: 26px;
+}
+
+.invite-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.invite-hero__line1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 140px;
+  line-height: 0.95;
+  color: var(--b-ink);
+  margin-bottom: 28px;
+}
+
+.invite-hero__line1 em {
+  font-style: normal;
+  font-family: var(--font-display-serif);
+  font-weight: 600;
+  font-style: italic;
+}
+
+.invite-hero__body {
+  font-size: 32px;
+  line-height: 1.85;
+  color: var(--b-ink);
+  opacity: 0.85;
+  max-width: 720px;
+  margin-bottom: 56px;
+}
+
+/* The "twin moon" element — abstract two-person mascot */
+.twin-mascot {
+  position: absolute;
+  right: 80px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 320px;
+  height: 200px;
+}
+
+.twin-mascot__moon {
+  position: absolute;
+  top: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.twin-mascot__moon--a {
+  left: 0;
+  background: conic-gradient(from 220deg at 50% 50%,
+    oklch(85% 0.10 95),
+    oklch(85% 0.10 195),
+    oklch(85% 0.10 320),
+    oklch(85% 0.10 95));
+  box-shadow: inset 16px -10px 0 var(--b-mark-line);
+}
+
+.twin-mascot__moon--b {
+  right: 0;
+  background: conic-gradient(from 40deg at 50% 50%,
+    oklch(85% 0.10 320),
+    oklch(85% 0.10 95),
+    oklch(85% 0.10 195),
+    oklch(85% 0.10 320));
+  box-shadow: inset -16px -10px 0 var(--b-mark-line);
+}
+
+.twin-mascot__dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--b-mark-line);
+  position: absolute;
+  top: 60px;
+}
+
+.twin-mascot__moon--a .twin-mascot__dot { left: 90px; }
+.twin-mascot__moon--b .twin-mascot__dot { right: 90px; }
+
+.twin-mascot__heart {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  color: var(--b-mark-line);
+}
+
+.card-1080__cta {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.btn-pill {
+  background: var(--b-ink);
+  color: var(--b-paper);
+  padding: 28px 48px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-pill--ghost {
+  background: transparent;
+  color: var(--b-ink);
+  border: 3px solid var(--b-ink);
+}
+
+.btn-pill svg {
+  width: 32px;
+  height: 32px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+}
+
+/* Small note bottom */
+.card-1080__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 2px solid oklch(0% 0 0 / 0.18);
+}
+
+.foot-text {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--b-ink);
+  opacity: 0.6;
+}
+
+/* --- RESULT STATE: 1080 x 1920 IG Story --- */
+.scaler-story {
+  transform: scale(0.35);
+  transform-origin: top center;
+  width: 1080px;
+  height: 1920px;
+  margin-bottom: -1248px;
+}
+
+.card-story {
+  width: 1080px;
+  height: 1920px;
+  background: var(--b-lavender);
+  position: relative;
+  overflow: hidden;
+  padding: 96px 88px 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-story::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 80% 18%, oklch(95% 0.05 290 / 0.5) 0, transparent 45%),
+    radial-gradient(circle at 18% 82%, oklch(95% 0.05 25 / 0.4) 0, transparent 45%);
+  pointer-events: none;
+}
+
+.story-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  z-index: 2;
+}
+
+/* Two-person header */
+.duo {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.person__icon {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: var(--b-butter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 8px 24px oklch(0% 0 0 / 0.08);
+}
+
+.person__icon--b {
+  background: var(--b-peach);
+}
+
+.person__icon-mark {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: conic-gradient(from 220deg at 50% 50%,
+    oklch(85% 0.10 95),
+    oklch(85% 0.10 195),
+    oklch(85% 0.10 320),
+    oklch(85% 0.10 95));
+  box-shadow: inset 14px -8px 0 var(--b-mark-line);
+  position: relative;
+}
+
+.person__icon-mark::after {
+  content: '';
+  position: absolute;
+  top: 50px;
+  left: 70px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--b-mark-line);
+}
+
+.person__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 60px;
+  color: var(--b-ink);
+  line-height: 1;
+  margin-top: 12px;
+}
+
+.person__sub {
+  font-size: 22px;
+  color: var(--b-ink);
+  opacity: 0.65;
+  font-family: var(--font-display-serif);
+}
+
+.duo__bond {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.bond-percent {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 120px;
+  line-height: 1;
+  color: var(--b-ink);
+  letter-spacing: -0.04em;
+}
+
+.bond-label {
+  font-family: var(--font-display-serif);
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--b-ink);
+  opacity: 0.7;
+  letter-spacing: 0.04em;
+}
+
+/* The verdict */
+.verdict {
+  margin-top: 80px;
+  position: relative;
+  z-index: 2;
+  background: var(--b-paper);
+  border-radius: 36px;
+  padding: 56px 48px;
+  box-shadow: 0 20px 40px oklch(0% 0 0 / 0.05);
+}
+
+.verdict__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 80px;
+  line-height: 1;
+  color: var(--b-ink);
+  margin-bottom: 24px;
+}
+
+.verdict__body {
+  font-size: 30px;
+  line-height: 1.85;
+  color: var(--b-ink);
+}
+
+.verdict__body em {
+  font-style: normal;
+  background: oklch(0% 0 0 / 0.06);
+  padding: 0 8px;
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+/* Breakdown bars */
+.breakdown {
+  margin-top: 40px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 80px;
+  align-items: center;
+  gap: 24px;
+}
+
+.bar-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 28px;
+  color: var(--b-ink);
+}
+
+.bar-track {
+  height: 24px;
+  border-radius: 999px;
+  background: oklch(100% 0 0 / 0.5);
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--b-ink);
+  border-radius: 999px;
+}
+
+.bar-fill--accent {
+  background: conic-gradient(from 90deg at 50% 50%,
+    oklch(75% 0.18 95),
+    oklch(75% 0.18 25),
+    oklch(75% 0.18 320),
+    oklch(75% 0.18 95));
+}
+
+.bar-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 28px;
+  text-align: right;
+  color: var(--b-ink);
+}
+
+/* Bottom CTA */
+.story-bottom {
+  margin-top: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.story-watermark {
+  font-family: var(--font-display-serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--b-ink);
+  opacity: 0.7;
+}
+
+.story-cta {
+  background: var(--b-ink);
+  color: var(--b-paper);
+  padding: 20px 36px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Share link mock */
+.share-mock {
+  max-width: 480px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid oklch(0% 0 0 / 0.06);
+  box-shadow: 0 4px 12px oklch(0% 0 0 / 0.04);
+}
+
+.share-mock__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--b-blush);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--b-ink);
+}
+
+.share-mock__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.share-mock__url {
+  font-family: var(--font-num);
+  font-size: 13px;
+  color: var(--b-ink);
+}
+
+.share-mock__title {
+  font-size: 11px;
+  color: var(--b-ink-soft);
+}
+
+.share-mock__btn {
+  background: var(--b-ink);
+  color: var(--b-paper);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.nav-back {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 100;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--b-ink-soft);
+  text-decoration: none;
+  background: oklch(100% 0 0 / 0.85);
+  backdrop-filter: blur(8px);
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid oklch(0% 0 0 / 0.08);
+}
+.nav-back:hover { color: var(--b-ink); }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="nav-back">← กลับไปคลังภาพ</a>
+
+<div class="page-header">
+  <h1>04 · ดวงคู่ — compatibility card</h1>
+  <p>๒ states: invite (ส่งให้ครัช) + result (ผลตรวจดวงคู่) · register B · ฟีเจอร์ viral หลักของแบรนด์</p>
+</div>
+
+<div class="section">
+  <span class="section-label">state A · invite — สำเร็จด้านน้อง รออีกคน</span>
+
+  <div class="gallery">
+    <div class="card-stage">
+      <span class="card-mood-label">1080 × 1080 · LINE timeline</span>
+      <div class="scaler-1080">
+        <div class="card-1080">
+
+          <div class="card-1080__top">
+            <div class="section-pill">ดวงคู่</div>
+            <div class="logo-tiny">
+              <svg viewBox="0 0 48 48" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M24 9 C20 17 20 23 24 27 C28 23 28 17 24 9 Z"/>
+                <path d="M11 15 C15 21 19 25 24 27 C20 23 16 17 11 15 Z"/>
+                <path d="M37 15 C33 21 29 25 24 27 C28 23 32 17 37 15 Z"/>
+                <circle cx="24" cy="8" r="3.2"/>
+              </svg>
+              <span class="logo-tiny__word">มหรดู</span>
+            </div>
+          </div>
+
+          <div class="twin-mascot" aria-hidden="true">
+            <div class="twin-mascot__moon twin-mascot__moon--a">
+              <div class="twin-mascot__dot"></div>
+            </div>
+            <div class="twin-mascot__moon twin-mascot__moon--b" style="opacity: 0.35; filter: grayscale(0.4);">
+              <div class="twin-mascot__dot"></div>
+            </div>
+          </div>
+
+          <div class="invite-hero">
+            <h2 class="invite-hero__line1">
+              ส่งให้<br>
+              <em>เขา</em> ดูสิ
+            </h2>
+            <p class="invite-hero__body">
+              ดวงคู่ต้องดูทั้งสองคน พี่ขอวันเกิดของอีกคนหน่อย ส่งลิงก์นี้ให้เขาทักพี่ในแชตได้เลย ใช้เวลาไม่ถึงนาที
+            </p>
+            <div class="card-1080__cta">
+              <div class="btn-pill">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="18" cy="5" r="3"/>
+                  <circle cx="6" cy="12" r="3"/>
+                  <circle cx="18" cy="19" r="3"/>
+                  <path d="M8.6 13.5 L15.4 17.5 M15.4 6.5 L8.6 10.5"/>
+                </svg>
+                ส่งลิงก์ให้เขา
+              </div>
+              <div class="btn-pill btn-pill--ghost">คัดลอกลิงก์</div>
+            </div>
+          </div>
+
+          <div class="card-1080__foot">
+            <span class="foot-text">หนิง · พุธ ๑๔ เม.ย. ๓๖</span>
+            <span class="foot-text">รอ ๑ คน...</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 32px;">
+    <div class="share-mock">
+      <div class="share-mock__icon">M</div>
+      <div class="share-mock__text">
+        <div class="share-mock__url">mhordu.com/p/h-x9k2</div>
+        <div class="share-mock__title">น้องหนิงอยากดูดวงคู่กับเรา</div>
+      </div>
+      <div class="share-mock__btn">เปิด</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <span class="section-label">state B · result — ตรวจครบ ๒ คน · ผลออก</span>
+
+  <div class="gallery">
+    <div class="card-stage">
+      <span class="card-mood-label">1080 × 1920 · IG Story</span>
+      <div class="scaler-story">
+        <div class="card-story">
+
+          <div class="story-top">
+            <div class="section-pill">ดวงคู่ของหนิง × ปอนด์</div>
+            <div class="logo-tiny">
+              <svg viewBox="0 0 48 48" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M24 9 C20 17 20 23 24 27 C28 23 28 17 24 9 Z"/>
+                <path d="M11 15 C15 21 19 25 24 27 C20 23 16 17 11 15 Z"/>
+                <path d="M37 15 C33 21 29 25 24 27 C28 23 32 17 37 15 Z"/>
+                <circle cx="24" cy="8" r="3.2"/>
+              </svg>
+              <span class="logo-tiny__word">มหรดู</span>
+            </div>
+          </div>
+
+          <div class="duo">
+            <div class="person">
+              <div class="person__icon">
+                <div class="person__icon-mark"></div>
+              </div>
+              <div class="person__name">หนิง</div>
+              <div class="person__sub">วันพุธ · ราหู</div>
+            </div>
+            <div class="duo__bond">
+              <div class="bond-percent">๘๗</div>
+              <div class="bond-label">% เข้ากันได้</div>
+            </div>
+            <div class="person">
+              <div class="person__icon person__icon--b">
+                <div class="person__icon-mark" style="background: conic-gradient(from 40deg at 50% 50%, oklch(85% 0.10 320), oklch(85% 0.10 95), oklch(85% 0.10 195), oklch(85% 0.10 320)); box-shadow: inset -14px -8px 0 var(--b-mark-line);"></div>
+              </div>
+              <div class="person__name">ปอนด์</div>
+              <div class="person__sub">วันศุกร์ · ศุกร์</div>
+            </div>
+          </div>
+
+          <div class="verdict">
+            <div class="verdict__title">เข้ากันมาก</div>
+            <div class="verdict__body">
+              ราหูของหนิงปกป้องดวงศุกร์ของปอนด์ — <em>เป็นคู่ที่ดูแลกันเงียบๆ</em> ปอนด์เป็นคนเอาใจ หนิงเป็นคนรู้ใจ พี่เห็นแล้วชอบจ้ะ
+            </div>
+          </div>
+
+          <div class="breakdown">
+            <div class="bar-row">
+              <span class="bar-label">ใจตรงกัน</span>
+              <div class="bar-track"><div class="bar-fill bar-fill--accent" style="width: 92%;"></div></div>
+              <span class="bar-num">๙๒</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">คุยกันลื่น</span>
+              <div class="bar-track"><div class="bar-fill bar-fill--accent" style="width: 85%;"></div></div>
+              <span class="bar-num">๘๕</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">เรื่องเงิน</span>
+              <div class="bar-track"><div class="bar-fill" style="width: 74%;"></div></div>
+              <span class="bar-num">๗๔</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">ครอบครัว</span>
+              <div class="bar-track"><div class="bar-fill" style="width: 88%;"></div></div>
+              <span class="bar-num">๘๘</span>
+            </div>
+          </div>
+
+          <div class="story-bottom">
+            <span class="story-watermark">mhordu.com</span>
+            <div class="story-cta">
+              ดูเชิงลึก
+              <span style="opacity: 0.7; font-weight: 400;">→</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

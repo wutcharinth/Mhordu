@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<title>Mhordu · LINE Rich Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600;700&family=Pridi:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --b-butter: oklch(92% 0.10 95);
+  --b-lavender: oklch(82% 0.08 290);
+  --b-mint: oklch(88% 0.09 165);
+  --b-blush: oklch(85% 0.10 25);
+  --b-ink: oklch(20% 0.005 270);
+  --b-ink-soft: oklch(45% 0.04 285);
+  --b-paper: oklch(97% 0.01 90);
+  --b-mark-line: oklch(35% 0.06 270);
+
+  --font-display: 'Mali', sans-serif;
+  --font-display-serif: 'Pridi', serif;
+  --font-body: 'IBM Plex Sans Thai', system-ui, sans-serif;
+  --font-num: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: var(--font-body);
+  background: oklch(97% 0.005 90);
+  color: var(--b-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  padding: 48px 24px 96px;
+}
+
+.page-header {
+  max-width: 1280px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-family: var(--font-display-serif);
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--b-ink-soft);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.section {
+  max-width: 1400px;
+  margin: 0 auto 64px;
+}
+
+.section-label {
+  display: inline-block;
+  font-family: var(--font-num);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--b-ink-soft);
+  margin-bottom: 16px;
+  padding-left: 16px;
+}
+
+/* The Rich Menu - 2500x1686 actual size, scaled to fit */
+.menu-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.menu-scaler {
+  transform: scale(0.52);
+  transform-origin: top center;
+  width: 2500px;
+  height: 1686px;
+  margin-bottom: -809px; /* 1686 * (1 - 0.52) */
+}
+
+.rich-menu {
+  width: 2500px;
+  height: 1686px;
+  background: var(--b-butter);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+/* Each cell of the grid is a tappable button */
+.menu-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 80px 72px;
+  border-right: 3px solid oklch(0% 0 0 / 0.08);
+  border-bottom: 3px solid oklch(0% 0 0 / 0.08);
+  position: relative;
+}
+
+.menu-cell:nth-child(3n) { border-right: none; }
+.menu-cell:nth-child(n+4) { border-bottom: none; }
+
+.menu-cell--primary {
+  background: var(--b-blush);
+}
+
+.menu-cell--secondary {
+  background: var(--b-lavender);
+}
+
+.menu-cell--tertiary {
+  background: var(--b-mint);
+}
+
+.menu-cell--quat {
+  background: var(--b-butter);
+}
+
+.menu-cell--quint {
+  background: oklch(90% 0.02 90);
+}
+
+.menu-cell--sext {
+  background: oklch(86% 0.05 80);
+}
+
+.cell-icon {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--b-mark-line);
+}
+
+.cell-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.cell-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cell-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 88px;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  color: var(--b-ink);
+}
+
+.cell-sub {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.5;
+  color: var(--b-ink);
+  opacity: 0.65;
+}
+
+.cell-corner {
+  position: absolute;
+  top: 56px;
+  right: 56px;
+  font-family: var(--font-display-serif);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--b-ink);
+  opacity: 0.4;
+}
+
+/* Mascot in primary cell */
+.menu-mascot {
+  position: absolute;
+  bottom: 80px;
+  right: 80px;
+  width: 280px;
+  height: 280px;
+}
+
+.menu-mascot__crescent {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: conic-gradient(from 220deg at 50% 50%,
+    oklch(85% 0.10 95),
+    oklch(85% 0.10 195),
+    oklch(85% 0.10 320),
+    oklch(85% 0.10 95));
+  box-shadow: inset 24px -14px 0 0 var(--b-mark-line);
+  position: relative;
+}
+
+.menu-mascot__dot {
+  position: absolute;
+  top: 80px;
+  left: 120px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--b-mark-line);
+}
+
+.menu-mascot__spark {
+  position: absolute;
+  top: -20px;
+  right: -10px;
+  width: 60px;
+  height: 60px;
+  color: var(--b-mark-line);
+}
+
+/* Tap zone overlay (visible only in spec view) */
+.tap-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  pointer-events: none;
+}
+
+.tap-zone {
+  border: 4px dashed oklch(50% 0.18 260 / 0.55);
+  margin: -2px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 30px;
+}
+
+.tap-zone__label {
+  background: oklch(50% 0.18 260);
+  color: white;
+  font-family: var(--font-num);
+  font-size: 28px;
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: 8px;
+  letter-spacing: 0.04em;
+}
+
+.stage-caption {
+  font-family: var(--font-num);
+  font-size: 12px;
+  color: var(--b-ink-soft);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Phone-frame mockup showing how rich menu sits in LINE */
+.phone-section {
+  display: flex;
+  gap: 64px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+.phone-frame {
+  width: 360px;
+  height: 760px;
+  background: oklch(20% 0.01 270);
+  border-radius: 56px;
+  padding: 12px;
+  box-shadow: 0 20px 60px oklch(0% 0 0 / 0.12);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: var(--b-paper);
+  border-radius: 44px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.phone-status {
+  height: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 28px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--b-ink);
+  background: var(--b-paper);
+}
+
+.line-header {
+  background: oklch(70% 0.15 145);
+  color: white;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.line-header__back {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.line-header__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--b-butter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--b-ink);
+}
+
+.line-header__avatar svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.line-header__name {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.line-header__name-th {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.line-header__name-sub {
+  font-size: 10px;
+  opacity: 0.85;
+}
+
+.line-chat {
+  flex: 1;
+  background: oklch(94% 0.005 90);
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.chat-bubble-bot {
+  align-self: flex-start;
+  max-width: 75%;
+  background: white;
+  padding: 12px 14px;
+  border-radius: 4px 16px 16px 16px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--b-ink);
+  box-shadow: 0 1px 2px oklch(0% 0 0 / 0.04);
+}
+
+.chat-card-bot {
+  align-self: flex-start;
+  width: 75%;
+  background: var(--b-butter);
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 1px 4px oklch(0% 0 0 / 0.06);
+}
+
+.chat-card-bot__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--b-ink);
+}
+
+.chat-card-bot__body {
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--b-ink);
+  opacity: 0.8;
+}
+
+.chat-bubble-time {
+  font-size: 10px;
+  color: var(--b-ink-soft);
+  margin-top: 4px;
+}
+
+.line-richmenu-attached {
+  height: 240px;
+  background: var(--b-butter);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  flex-shrink: 0;
+  border-top: 1px solid oklch(0% 0 0 / 0.06);
+}
+
+.mini-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+  border-right: 1px solid oklch(0% 0 0 / 0.04);
+  border-bottom: 1px solid oklch(0% 0 0 / 0.04);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--b-ink);
+  text-align: center;
+}
+
+.mini-cell:nth-child(3n) { border-right: none; }
+.mini-cell:nth-child(n+4) { border-bottom: none; }
+
+.mini-cell--p { background: var(--b-blush); }
+.mini-cell--s { background: var(--b-lavender); }
+.mini-cell--t { background: var(--b-mint); }
+.mini-cell--q { background: var(--b-butter); }
+.mini-cell--u { background: oklch(90% 0.02 90); }
+.mini-cell--x { background: oklch(86% 0.05 80); }
+
+.mini-cell svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--b-mark-line);
+  stroke-width: 2;
+  fill: none;
+}
+
+.line-input {
+  height: 44px;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--b-ink-soft);
+  border-top: 1px solid oklch(0% 0 0 / 0.06);
+}
+
+.line-input::before {
+  content: '';
+  flex: 1;
+  height: 28px;
+  background: oklch(94% 0.005 90);
+  border-radius: 999px;
+}
+
+.phone-caption {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 12px;
+  font-family: var(--font-num);
+  color: var(--b-ink-soft);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Spec table */
+.spec-table {
+  max-width: 880px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  padding: 24px 32px;
+  border: 1px solid oklch(0% 0 0 / 0.06);
+}
+
+.spec-table h3 {
+  font-family: var(--font-display-serif);
+  font-weight: 600;
+  font-size: 17px;
+  margin-bottom: 12px;
+  color: var(--b-ink);
+}
+
+.spec-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+
+.spec-table th,
+.spec-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid oklch(0% 0 0 / 0.05);
+}
+
+.spec-table th {
+  font-weight: 600;
+  color: var(--b-ink);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--b-ink-soft);
+}
+
+.spec-table td:first-child {
+  font-family: var(--font-num);
+  font-size: 12px;
+  color: var(--b-ink-soft);
+}
+
+.nav-back {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 100;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--b-ink-soft);
+  text-decoration: none;
+  background: oklch(100% 0 0 / 0.85);
+  backdrop-filter: blur(8px);
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid oklch(0% 0 0 / 0.08);
+}
+.nav-back:hover { color: var(--b-ink); }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="nav-back">← กลับไปคลังภาพ</a>
+
+<div class="page-header">
+  <h1>02 · LINE Rich Menu</h1>
+  <p>ขนาดจริง 2500 × 1686 (LINE official rich menu) · 6 ปุ่ม · register B</p>
+</div>
+
+<!-- The actual rich menu image -->
+<div class="section">
+  <span class="section-label">rich menu · full bleed image</span>
+
+  <div class="menu-stage">
+    <div class="menu-scaler">
+      <div class="rich-menu">
+
+        <div class="menu-cell menu-cell--primary">
+          <div class="cell-icon">
+            <svg viewBox="0 0 64 64" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="32" cy="32" r="22"/>
+              <path d="M32 14 L32 32 L44 38"/>
+              <circle cx="32" cy="32" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="cell-text">
+            <span class="cell-label">ดวงวันนี้</span>
+            <span class="cell-sub">เปิดอ่านดวงประจำวันของพี่</span>
+          </div>
+          <div class="cell-corner">๑</div>
+          <div class="menu-mascot" aria-hidden="true">
+            <div class="menu-mascot__crescent">
+              <div class="menu-mascot__dot"></div>
+            </div>
+            <svg class="menu-mascot__spark" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="menu-cell menu-cell--secondary">
+          <div class="cell-icon">
+            <svg viewBox="0 0 64 64" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="24" cy="28" r="10"/>
+              <circle cx="40" cy="28" r="10"/>
+              <path d="M14 50 C18 42 28 42 32 50 C36 42 46 42 50 50"/>
+            </svg>
+          </div>
+          <div class="cell-text">
+            <span class="cell-label">ดวงคู่</span>
+            <span class="cell-sub">เช็คความเข้ากันได้กับคนพิเศษ</span>
+          </div>
+          <div class="cell-corner">๒</div>
+        </div>
+
+        <div class="menu-cell menu-cell--tertiary">
+          <div class="cell-icon">
+            <svg viewBox="0 0 64 64" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="32" cy="32" r="24"/>
+              <path d="M32 8 L32 56 M8 32 L56 32 M16 16 L48 48 M48 16 L16 48"/>
+              <circle cx="32" cy="32" r="6" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="cell-text">
+            <span class="cell-label">ฤกษ์ดี</span>
+            <span class="cell-sub">หาวันมงคลสำหรับงานสำคัญ</span>
+          </div>
+          <div class="cell-corner">๓</div>
+        </div>
+
+        <div class="menu-cell menu-cell--quat">
+          <div class="cell-icon">
+            <svg viewBox="0 0 64 64" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="20" cy="22" r="8" fill="oklch(75% 0.16 25)" stroke="none"/>
+              <circle cx="44" cy="22" r="8" fill="oklch(80% 0.15 95)" stroke="none"/>
+              <circle cx="20" cy="42" r="8" fill="oklch(75% 0.14 145)" stroke="none"/>
+              <circle cx="44" cy="42" r="8" fill="oklch(70% 0.15 260)" stroke="none"/>
+              <circle cx="32" cy="32" r="6" fill="oklch(80% 0.05 90)" stroke="oklch(35% 0.06 270)" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="cell-text">
+            <span class="cell-label">สีมงคล</span>
+            <span class="cell-sub">สีที่ใส่แล้วเฮงประจำวัน</span>
+          </div>
+          <div class="cell-corner">๔</div>
+        </div>
+
+        <div class="menu-cell menu-cell--quint">
+          <div class="cell-icon">
+            <svg viewBox="0 0 64 64" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 24 L52 24 L48 52 L16 52 Z"/>
+              <path d="M22 24 C22 14 28 10 32 10 C36 10 42 14 42 24"/>
+              <circle cx="26" cy="36" r="2" fill="currentColor"/>
+              <circle cx="38" cy="36" r="2" fill="currentColor"/>
+              <path d="M26 44 C28 46 36 46 38 44"/>
+            </svg>
+          </div>
+          <div class="cell-text">
+            <span class="cell-label">ดูเชิงลึก</span>
+            <span class="cell-sub">ดวงชะตา · ราหู · ดาวพระเคราะห์</span>
+          </div>
+          <div class="cell-corner">๕</div>
+        </div>
+
+        <div class="menu-cell menu-cell--sext">
+          <div class="cell-icon">
+            <svg viewBox="0 0 64 64" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="32" cy="24" r="10"/>
+              <path d="M14 54 C16 44 24 38 32 38 C40 38 48 44 50 54"/>
+            </svg>
+          </div>
+          <div class="cell-text">
+            <span class="cell-label">ของฉัน</span>
+            <span class="cell-sub">โปรไฟล์ · แพ็คเกจ · ตั้งค่า</span>
+          </div>
+          <div class="cell-corner">๖</div>
+        </div>
+
+      </div>
+    </div>
+    <span class="stage-caption">2500 × 1686 px · scale 52%</span>
+  </div>
+</div>
+
+<!-- Phone-frame mockup: rich menu in real LINE chat -->
+<div class="section">
+  <span class="section-label">in context · how the menu sits in LINE chat</span>
+
+  <div class="phone-section">
+
+    <div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-status">
+            <span>9:41</span>
+            <span>ดวงไม่แรง</span>
+          </div>
+          <div class="line-header">
+            <span class="line-header__back">‹</span>
+            <div class="line-header__avatar">
+              <svg viewBox="0 0 48 48" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M24 9 C20 17 20 23 24 27 C28 23 28 17 24 9 Z"/>
+                <path d="M11 15 C15 21 19 25 24 27 C20 23 16 17 11 15 Z"/>
+                <path d="M37 15 C33 21 29 25 24 27 C28 23 32 17 37 15 Z"/>
+                <circle cx="24" cy="8" r="3.2"/>
+              </svg>
+            </div>
+            <div class="line-header__name">
+              <span class="line-header__name-th">มหรดู · พี่หมอดู AI</span>
+              <span class="line-header__name-sub">ทักได้ทุกเมื่อ · ยืนยันแล้ว</span>
+            </div>
+          </div>
+          <div class="line-chat">
+            <div class="chat-bubble-bot">
+              สวัสดีน้อง วันนี้พี่หนิงตื่นแต่เช้านะ ⊙
+              <div class="chat-bubble-time">9:38 น.</div>
+            </div>
+            <div class="chat-card-bot">
+              <div class="chat-card-bot__title">ใจดี</div>
+              <div class="chat-card-bot__body">วันพุธของพี่นุ่มนวลกว่าวันอื่น ลองยิ้มก่อนเริ่มประชุม...</div>
+            </div>
+            <div class="chat-bubble-bot">
+              อยากดูอะไรเพิ่มกดเมนูข้างล่างได้เลยจ้ะ
+              <div class="chat-bubble-time">9:38 น.</div>
+            </div>
+          </div>
+          <div class="line-richmenu-attached">
+            <div class="mini-cell mini-cell--p">
+              <svg viewBox="0 0 64 64" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="22"/><path d="M32 14 L32 32 L44 38"/></svg>
+              ดวงวันนี้
+            </div>
+            <div class="mini-cell mini-cell--s">
+              <svg viewBox="0 0 64 64" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="10"/><circle cx="40" cy="28" r="10"/></svg>
+              ดวงคู่
+            </div>
+            <div class="mini-cell mini-cell--t">
+              <svg viewBox="0 0 64 64" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="22"/><path d="M32 8 L32 56 M8 32 L56 32"/></svg>
+              ฤกษ์ดี
+            </div>
+            <div class="mini-cell mini-cell--q">
+              <svg viewBox="0 0 64 64"><circle cx="20" cy="22" r="8" fill="oklch(75% 0.16 25)"/><circle cx="44" cy="22" r="8" fill="oklch(80% 0.15 95)"/><circle cx="20" cy="42" r="8" fill="oklch(75% 0.14 145)"/><circle cx="44" cy="42" r="8" fill="oklch(70% 0.15 260)"/></svg>
+              สีมงคล
+            </div>
+            <div class="mini-cell mini-cell--u">
+              <svg viewBox="0 0 64 64" stroke-linecap="round" stroke-linejoin="round"><path d="M12 24 L52 24 L48 52 L16 52 Z"/><path d="M22 24 C22 14 28 10 32 10 C36 10 42 14 42 24"/></svg>
+              ดูเชิงลึก
+            </div>
+            <div class="mini-cell mini-cell--x">
+              <svg viewBox="0 0 64 64" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="10"/><path d="M14 54 C16 44 24 38 32 38 C40 38 48 44 50 54"/></svg>
+              ของฉัน
+            </div>
+          </div>
+          <div class="line-input"></div>
+        </div>
+      </div>
+      <div class="phone-caption">รูปจริงในแชต LINE</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Tap zone specification -->
+<div class="section">
+  <span class="section-label">tap zones · for LINE rich-menu config</span>
+  <div class="spec-table">
+    <h3>พิกัด tap zone (LINE Messaging API)</h3>
+    <table>
+      <thead>
+        <tr><th>Action</th><th>X</th><th>Y</th><th>Width</th><th>Height</th><th>postback</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>๑ ดวงวันนี้</td><td>0</td><td>0</td><td>833</td><td>843</td><td>action=daily</td></tr>
+        <tr><td>๒ ดวงคู่</td><td>833</td><td>0</td><td>834</td><td>843</td><td>action=duang_koo</td></tr>
+        <tr><td>๓ ฤกษ์ดี</td><td>1667</td><td>0</td><td>833</td><td>843</td><td>action=ruek</td></tr>
+        <tr><td>๔ สีมงคล</td><td>0</td><td>843</td><td>833</td><td>843</td><td>action=color</td></tr>
+        <tr><td>๕ ดูเชิงลึก</td><td>833</td><td>843</td><td>834</td><td>843</td><td>action=deep</td></tr>
+        <tr><td>๖ ของฉัน</td><td>1667</td><td>843</td><td>833</td><td>843</td><td>action=profile</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
