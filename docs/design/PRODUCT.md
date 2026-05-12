@@ -6,7 +6,7 @@
 
 **Dual register.** Surfaces split into:
 
-- **brand** — mhordu.com landing, pricing, cultural authority page, paywall, ฤกษ์ B2B surfaces, premium-tier UI. Identity-led. Direction A · Modern Thai Mystical.
+- **brand** — mhordu.ai landing, pricing, cultural authority page, paywall, ฤกษ์ B2B surfaces, premium-tier UI. Identity-led. Direction A · Modern Thai Mystical.
 - **product** — daily horoscope card, ดวงคู่ compatibility card, lucky color tile, sticker pack, all share-optimized artifacts. Utility-led. Direction B · Y2K Mystic Pop.
 
 A shared logo, shared display serif (Pridi), and shared พี่ voice bridge both.
@@ -46,9 +46,10 @@ A shared logo, shared display serif (Pridi), and shared พี่ voice bridge b
 ## Brand
 
 ### Name
-**Mhordu** (มหรดู / หมอดู) — Thai for "fortune teller" / "seer." Pronounced *mŏr-doo*.
-- Domain: mhordu.com (primary), mhordu.ai (tech / brand redirect)
-- LINE Official Account: `@mhordu`
+- **Thai:** หมอดู.ai — literal Thai for "fortune teller" + .ai TLD suffix. Pronounced *mŏr-doo dot ay-eye*.
+- **Latin transliteration:** Mhordu (used for handles, English-context refs)
+- **Domain:** mhordu.ai (primary)
+- **LINE Official Account:** `@mhordu`
 
 ### Logo
 Lotus + planet glyph, monoline. Single mark works on both registers:
@@ -80,7 +81,7 @@ Lotus + planet glyph, monoline. Single mark works on both registers:
 - Specific > vague. "วันนี้สีเขียวมินต์ใส่แล้วราบรื่น" beats "สีนี้ดี"
 - Cultural specificity. Refer to ฤกษ์, ราหู, ดาวพระเคราะห์ when correct — don't dumb down.
 - Never use Western zodiac framing (Pisces / Aries). Thai system only.
-- **No English in copy.** Brand name "Mhordu" stays, but body copy 100% Thai.
+- **No English in copy.** Brand displays as "หมอดู.ai" — body copy 100% Thai. "Mhordu" allowed for Latin-context handles only.
 - **No em dashes**, no ironic quotes, no jokes about dharma or monks.
 
 ### Voice examples
@@ -131,7 +132,7 @@ Founder-curated in months 1–2. Mid-tier หมอดู advisory retainer in m
 ## Success criteria (design level)
 
 1. A 32-year-old Thai woman opens Mhordu's daily card on the BTS, reads it in 4 seconds, screenshots it to IG Story without thinking.
-2. A 45-year-old shop owner sees the mhordu.com landing and trusts it within 8 seconds — premium, authoritative, "this is the real thing."
+2. A 45-year-old shop owner sees the mhordu.ai landing and trusts it within 8 seconds — premium, authoritative, "this is the real thing."
 3. A 19-year-old uni student sees the ดวงคู่ card and immediately taps "invite my crush" without hesitation.
 
 If any of those three fail, the design fails.

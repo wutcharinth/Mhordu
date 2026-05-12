@@ -13,7 +13,7 @@ These cross both registers.
 - **Mark:** abstract lotus + planet glyph, monoline, single weight
 - **Source files** (to be commissioned in build-mode step 1):
   - `assets/logo/mhordu-mark.svg` — symbol only
-  - `assets/logo/mhordu-wordmark-th.svg` — มหรดู wordmark, Pridi-derived custom letterforms
+  - `assets/logo/mhordu-wordmark-th.svg` — หมอดู wordmark, Pridi-derived custom letterforms
   - `assets/logo/mhordu-lockup.svg` — mark + wordmark, horizontal
 - **Clearspace:** = mark height on all sides
 - **Minimum size:** 24px on screen, 8mm in print
@@ -75,7 +75,7 @@ xl   48   px
 
 ## Register A · Modern Thai Mystical
 
-**Surfaces:** mhordu.com landing, pricing, cultural authority, paywall, ฤกษ์ B2B, premium-tier UI.
+**Surfaces:** mhordu.ai landing, pricing, cultural authority, paywall, ฤกษ์ B2B, premium-tier UI.
 
 **Scene sentence:** *32yo Thai woman on BTS, single-glance read, forwards to mom on LINE. Authority, calm, premium.*
 

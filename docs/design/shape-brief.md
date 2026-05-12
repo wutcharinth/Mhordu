@@ -14,7 +14,7 @@
 3. `03-onboarding.html` — Welcome + birth-info flow · register B
 4. `04-duang-koo.html` — ดวงคู่ compatibility card · register B · invite mechanic visible
 5. `05-paywall.html` — Subscription upsell · register B → A transition
-6. `06-web-landing.html` — mhordu.com landing · register A
+6. `06-web-landing.html` — mhordu.ai landing · register A
 7. `07-pricing.html` — Pricing page · register A
 8. `index.html` — Gallery of all 7
 
@@ -48,7 +48,7 @@ Hero designs (1, 4, 5) optimized for พี่หนิง + น้องบี�
 Three scene sentences from PRODUCT.md must pass:
 
 1. ✅ 32yo Thai woman opens daily card on BTS, reads in 4s, screenshots to IG Story
-2. ✅ 45yo shop owner lands on mhordu.com, trusts it in 8s as "the real thing"
+2. ✅ 45yo shop owner lands on mhordu.ai, trusts it in 8s as "the real thing"
 3. ✅ 19yo uni student sees ดวงคู่ card, taps "invite my crush" without hesitation
 
 If a design fails any of these, redo.
@@ -122,7 +122,7 @@ This brief explicitly avoids:
 
 After Phase 1 designs ship:
 - A Thai astrology Facebook page admin sees daily card and DMs to ask "ทำเองหรือ?" ("did you make this yourself?") — they thought it was a real product
-- A founder of a competing Thai horoscope app sees mhordu.com and goes quiet for a week
+- A founder of a competing Thai horoscope app sees mhordu.ai and goes quiet for a week
 - The Y2K register cards get screenshotted in Thai Twitter/X by users who don't know it's a brand yet — organic share before launch
 
 ---

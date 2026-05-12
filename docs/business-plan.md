@@ -1,6 +1,7 @@
-# Mhordu — Business Plan
+# หมอดู.ai — Business Plan
 
-**Domain:** mhordu.com (web) + mhordu.ai (brand)
+**Brand:** หมอดู.ai (Thai) · Mhordu (Latin transliteration)
+**Domain:** mhordu.ai
 **Founder:** Solo, bootstrap (THB 0–500k)
 **Scope:** Thailand only — no SEA expansion. Depth over breadth.
 **Date:** 2026-05-13
@@ -23,7 +24,7 @@ Mhordu is the LINE-native AI fortune-teller for Thai cultural astrology, monetiz
 
 | | |
 |---|---|
-| **Product** | LINE bot delivering daily personalized Thai horoscope, ดวงคู่ compatibility, ฤกษ์ดี calendar, birth-chart readings. Web companion at mhordu.com. |
+| **Product** | LINE bot delivering daily personalized Thai horoscope, ดวงคู่ compatibility, ฤกษ์ดี calendar, birth-chart readings. Web companion at mhordu.ai. |
 | **Cultural moat** | In-house curated Thai astrology knowledge base (โหราศาสตร์ไทย, มหาทักษา, ฤกษ์งามยามดี, สีมงคล) feeding a RAG-tuned LLM. Built from canonical Thai sources by founder; หมอดู advisory layer added once revenue funds it. |
 | **Monetization** | Freemium subscription (THB 99–999/month) + per-reading microtransactions + premium human-หมอดู tier. |
 | **Virality** | (a) Daily shareable fortune cards optimized for IG Stories + LINE timeline. (b) ดวงคู่ requires inviting a partner/crush — built-in K-factor. |
@@ -69,7 +70,7 @@ Mhordu is the LINE-native AI fortune-teller for Thai cultural astrology, monetiz
 - Birth-chart deep analysis (มหาทักษา, ดาวพระเคราะห์ presence)
 - Premium tier with human-หมอดู consult slots
 - Voice readings (Thai TTS, optional)
-- Web companion at mhordu.com (SEO + brand)
+- Web companion at mhordu.ai (SEO + brand)
 - Notification system: ฤกษ์ดี alerts, daily reminders
 
 ### Year 2 (Thailand-deep, not SEA-wide)
@@ -211,7 +212,7 @@ Output: 200–500 page structured knowledge base (markdown + JSON), embedded int
 - Thai astrology Facebook groups (dozens of 10k+ communities)
 - Twitter/X Thai astrology community (#โหราศาสตร์, #ดวงวันนี้)
 - TikTok content: short daily-reading clips, founder face if comfortable
-- Thai-language SEO blog on mhordu.com (long-tail: "ฤกษ์ดี [month] [year]", "สีมงคลวันเกิด...")
+- Thai-language SEO blog on mhordu.ai (long-tail: "ฤกษ์ดี [month] [year]", "สีมงคลวันเกิด...")
 - **Target: 1,000–5,000 LINE OA followers, 100–500 paid sign-ups (later)**
 
 ### Phase 2 (months 4–6): Viral loops + influencer collabs
@@ -333,7 +334,7 @@ If conversion 3% instead of 5%, break-even slips to month 10, year-end MRR THB 6
 | Risk | Likelihood | Impact | Mitigation |
 |---|---|---|---|
 | **Thai Lottery Act §17** (predicting lottery numbers illegal) | High | High | Hard ban on lottery numbers. Frame all readings as entertainment. Disclaimer in TOS. |
-| **LINE platform policy / cost change** | Medium | High | Web companion (mhordu.com) as fallback. Build email/SMS list of users from day 1. Build Thai SMS broadcast capability via Twilio TH. |
+| **LINE platform policy / cost change** | Medium | High | Web companion (mhordu.ai) as fallback. Build email/SMS list of users from day 1. Build Thai SMS broadcast capability via Twilio TH. |
 | **AI cultural inaccuracy / community backlash** | Medium | High | Native Thai reviewer in workflow. Phased launch. Public credit to astrology sources. Buddhist advisory board year 2. |
 | **Big incumbent enters** (LINE itself, Mthai, Sanook) | Medium | Medium | Speed, brand love, viral loops, network effects via ดวงคู่. Move faster than incumbents can. |
 | **Solo founder burnout** | High | High | Hire roadmap is revenue-gated. AI-leveraged dev. Hard time-off rules. |
@@ -371,7 +372,7 @@ If conversion 3% instead of 5%, break-even slips to month 10, year-end MRR THB 6
 
 ### Q4 (months 10–12): Deepen & web launch
 - [ ] Whale tier (THB 999 with human หมอดู)
-- [ ] mhordu.com web companion
+- [ ] mhordu.ai web companion
 - [ ] B2B pilot (5–10 Thai SMB clients for ฤกษ์ดี)
 - [ ] Hire #1: part-time Thai content lead
 - **Milestone:** 150k MAU, 7k paid, THB 1M+ MRR
@@ -438,7 +439,7 @@ Before any pixel, lock these documents:
 **Locked decision:** dual register. Modern Thai Mystical (A) for premium / web / B2B surfaces. Y2K Mystic Pop (B) for daily share card / viral content / IG Stories. Single shared logo bridges both. Voice: **พี่** (friendly older sister) — softens A's seriousness and pairs natively with B.
 
 **Register split (per impeccable's `register` field):**
-- **Brand register (A — Modern Thai Mystical)**: mhordu.com landing, pricing, cultural authority page, paywall, ฤกษ์ business/B2B surfaces, premium-tier UI
+- **Brand register (A — Modern Thai Mystical)**: mhordu.ai landing, pricing, cultural authority page, paywall, ฤกษ์ business/B2B surfaces, premium-tier UI
 - **Product register (B — Y2K Mystic Pop)**: daily horoscope card, ดวงคู่ compatibility card, lucky color tile, sticker pack, all share-optimized artifacts
 
 **Shared system:**
@@ -491,7 +492,7 @@ LINE-side (rich content sent as messages — these ARE the product surface):
 | 5 | Lucky color / number tile | 1080×1080 | Single-glance daily companion |
 | 6 | Paywall upsell | Carousel template | After free-tier limit hit |
 
-Web companion (mhordu.com):
+Web companion (mhordu.ai):
 
 | # | Page | Notes |
 |---|---|---|
@@ -549,7 +550,7 @@ Not applicable — no code yet. Expected key files when build begins:
 - `/data/knowledge-base/` — โหราศาสตร์ไทย structured content (markdown + JSON)
 - `/services/image-gen/` — daily card generator (fortune card SVG + Cloudinary / Sharp)
 - `/services/payment/` — Omise integration
-- `/apps/web/` — Next.js mhordu.com
+- `/apps/web/` — Next.js mhordu.ai
 - `/apps/line-rich/` — LINE rich menu + card templates
 - `/docs/legal/` — Thai PDPA + Lottery Act compliance notes
 
@@ -564,7 +565,7 @@ Not applicable — no code yet. Expected key files when build begins:
 **Still open (defer to build-mode kickoff):**
 3. **Founder's Thai astrology depth** — working knowledge of โหราศาสตร์ไทย, or commission a consultant from day 1? Affects month-1 knowledge-base build cost.
 4. **Legal entity** — Thai limited company from day 1, or sole-prop until revenue? Affects payment-gateway (Omise) onboarding.
-5. **Domain priority** — lead with mhordu.com or mhordu.ai? Recommend .com primary (Thai user recognition), .ai redirect (tech signaling).
+5. **Domain priority** — lead with mhordu.ai or mhordu.ai? Recommend .com primary (Thai user recognition), .ai redirect (tech signaling).
 
 ---
 

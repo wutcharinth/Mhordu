@@ -1,4 +1,4 @@
-# brand-spec.md · Mhordu
+# brand-spec.md · หมอดู.ai
 
 > Asset registry per huashu-design's "core asset protocol."
 > v0 state: Mhordu is a new brand. Logo + mascot + photography do not exist yet.
@@ -12,7 +12,7 @@
 | Asset | Status | Path / placeholder |
 |---|---|---|
 | **Logo · mark** | 🟡 PLACEHOLDER | CSS-rendered abstract mark (lotus + planet) in each design file. To commission month 1. |
-| **Logo · wordmark TH** | 🟡 PLACEHOLDER | "มหรดู" typeset in Pridi 600 with manual letter-spacing tweaks. To commission. |
+| **Logo · wordmark TH** | 🟡 PLACEHOLDER | "หมอดู" typeset in Pridi 600 with manual letter-spacing tweaks. To commission. |
 | **Logo · lockup** | 🟡 PLACEHOLDER | Composed inline. To commission. |
 | **Mascot (B register)** | 🟢 v1 INTENTIONAL | Abstract geometric crescent + sparkle + dot (per "honest placeholder" rule). Real mascot deferred to month 6+. |
 | **Product / UI imagery** | 🟢 N/A | This IS the UI. No external product to photograph. |
@@ -54,17 +54,20 @@
 </svg>
 ```
 
-### Wordmark — "มหรดู"
+### Wordmark — "หมอดู.ai"
 
-- Set in **Pridi 600** (display), tracking adjusted manually per glyph pair
-- Custom ligature consideration: หร kerning, ดู mai-han-akat stacking
-- v1 uses live-typeset Pridi; real custom-drawn wordmark in build-mode month 1
+- Set in **Pridi 600** (display) for "หมอดู", with ".ai" suffix as styled inline accent
+- The .ai is part of the brand name, not just a TLD — it signals AI / tech + matches the primary domain
+- Custom ligature consideration: หม kerning, ดู mai-han-akat stacking
+- Display option A (clean): plain inline "หมอดู.ai" in Pridi — current v1 implementation
+- Display option B (polished, future): "หมอดู" + smaller monospace ".ai" with vertical-align baseline tweak
+- v1 uses live-typeset Pridi inline; real custom-drawn wordmark in build-mode month 1
 
 ### Lockup
 
 ```
-[mark]   มหรดู
-         mhordu.com
+[mark]   หมอดู.ai
+         mhordu.ai
 ```
 
 Mark height = wordmark cap-height × 1.6. Gap = 0.6 × mark height.
@@ -148,7 +151,7 @@ Brand palette **avoids** strong red / yellow / green at saturated levels to prev
 - Type as image (large Thai display type as visual element)
 
 **v2 (year 1 month 9+):** commission Thai illustrator for:
-- Header artwork on web (mhordu.com about / cultural authority page)
+- Header artwork on web (mhordu.ai about / cultural authority page)
 - Sticker pack illustrations
 - Mascot final character design
 

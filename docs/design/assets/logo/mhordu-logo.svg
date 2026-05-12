@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mhordu logo mark">
+  <defs>
+    <radialGradient id="orb" cx="36%" cy="30%" r="74%">
+      <stop offset="0" stop-color="#F7E89D"/>
+      <stop offset=".34" stop-color="#8FE7CE"/>
+      <stop offset=".68" stop-color="#C9BDF3"/>
+      <stop offset="1" stop-color="#F1A2A0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="32" cy="32" r="23" fill="url(#orb)"/>
+  <path d="M44.5 17.5a23 23 0 0 0 0 29 20.2 20.2 0 1 1 0-29Z" fill="#1B1F3A"/>
+  <path d="M48 20.5a19.6 19.6 0 0 0 0 23" fill="none" stroke="#F4EFE6" stroke-width="3.2" stroke-linecap="round"/>
+  <circle cx="46" cy="30.5" r="3" fill="#1B1F3A"/>
+  <path d="M15.5 49c7.8 3.9 19.2 4.2 28.5.6" fill="none" stroke="#1B1F3A" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M50 12v6M47 15h6M14 17v4M12 19h4" fill="none" stroke="#C9A24D" stroke-width="2.4" stroke-linecap="round"/>
+</svg>
